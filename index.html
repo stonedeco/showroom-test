@@ -399,11 +399,13 @@
 <body>
 
 <!-- HEADER -->
-<div class="header">
-  <div class="logo">Stone Deco</div>
-  <p class="welcome">Рады, что вы были<br>с нами сегодня</p>
-  <div style="height:0.8rem"></div>
-  <p class="subtitle">Всё, что вы видели — здесь.<br>Для вас и ваших проектов.</p>
+<div class="header" style="padding:0; position:relative; overflow:hidden; min-height:220px;">
+  <img src="hero.jpg" alt="" style="width:100%; height:220px; object-fit:cover; display:block; opacity:0.7;"/>
+  <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 100%); display:flex; flex-direction:column; justify-content:flex-end; padding:1.5rem 1.25rem 1.8rem;">
+    <div class="logo" style="margin-bottom:0.8rem;">Stone Deco</div>
+    <p class="welcome" style="margin-bottom:0.4rem;">Рады, что вы были с нами<br>в день открытия!</p>
+    <p class="subtitle">Всё, что вы видели — здесь.<br>Для вас и ваших проектов.</p>
+  </div>
 </div>
 
 <!-- КТО МЫ -->
@@ -539,6 +541,7 @@
   <p class="offer-card-label" id="offer-label"></p>
   <p class="offer-card-title" id="offer-title"></p>
   <p class="offer-card-body" id="offer-body"></p>
+  <p class="offer-card-cta" id="offer-bold-body" style="display:none;"></p>
   <p class="offer-card-cta" id="offer-cta"></p>
   <div class="offer-btns" id="offer-btns"></div>
 </div>
@@ -662,7 +665,8 @@
     furniture: {
       label: "Для производства мебели",
       title: "Партнёрство на ваших условиях",
-      body: "Камень и мебель — естественное сочетание. Столешница, полка, фасад, подоконник — детали, которые клиент замечает в первую очередь.\n\nМы умеем работать так, как удобно вам. Если хотите просто рекомендовать — за каждый реализованный проект предусмотрено вознаграждение. Если берёте замер и установку на себя — получаете материал по партнёрской цене.",
+      body: "Камень и мебель — естественное сочетание. Столешница, полка, фасад, подоконник — детали, которые клиент замечает в первую очередь.",
+      boldBody: "Мы умеем работать так, как удобно вам. Если хотите просто рекомендовать — за каждый реализованный проект предусмотрено вознаграждение. Если берёте замер и установку на себя — получаете материал по партнёрской цене.",
       btns: [
         { label: "Позвонить менеджеру", link: "phone" },
         { label: "Написать нам", link: "tg_manager" }
@@ -671,7 +675,7 @@
     lifestyle: {
       label: "Для тех, кто хочет камень в интерьере",
       title: "Начать можно прямо сейчас",
-      body: "Если сегодня что-то зацепило — это не случайно. Натуральный камень меняет ощущение пространства даже в небольших деталях: поднос, подставка, столешница на кухне.\n\nНебольшие предметы из карельского камня есть на Озоне. А если захочется большего — вы знаете, где мы.",
+      body: "Если на открытии наши изделия запомнились, это не случайно. Натуральный камень меняет ощущение пространства даже в небольших деталях: поднос, подставка, столешница на кухне.\n\nНебольшие предметы из карельского камня есть на Озоне. А если захочется большего — вы знаете, где мы.",
       btns: [
         { label: "Смотреть на Озоне", link: "ozon" }
       ]
@@ -695,11 +699,16 @@
       document.getElementById('offer-label').textContent = offer.label;
       document.getElementById('offer-title').textContent = offer.title;
       document.getElementById('offer-body').textContent = offer.body;
+      const boldBodyEl = document.getElementById('offer-bold-body');
+      if (boldBodyEl) {
+        boldBodyEl.textContent = offer.boldBody || '';
+        boldBodyEl.style.display = offer.boldBody ? 'block' : 'none';
+      }
       const ctaEl = document.getElementById('offer-cta');
       const ctas = {
         designers: "За реализованные проекты предусмотрено вознаграждение, а для собственных пространств материал доступен по закрытой цене. Точные условия обсуждаем лично — свяжитесь с нами.",
         builders:  "За реализованные объекты — вознаграждение, для своих пространств — материал по закрытой цене. Точные условия обсуждаем лично — свяжитесь с нами.",
-        furniture: "За реализованные проекты предусмотрено вознаграждение, а для собственных пространств материал доступен по закрытой цене. Точные условия обсуждаем лично — свяжитесь с нами."
+        furniture: ""
       };
       const ctaText = ctas[audience] || '';
       ctaEl.textContent = ctaText;
